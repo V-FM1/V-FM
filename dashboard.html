@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>V-FM Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>V-FM Admin Dashboard</h1>
+    <button onclick="logout()">Logout</button>
+
+    <section class="upload-form">
+      <h2>Upload Podcast</h2>
+      <input type="text" id="title" placeholder="Podcast Title" />
+      <textarea id="description" placeholder="Podcast Description"></textarea>
+      <input type="file" id="file" />
+      <button onclick="uploadPodcast()">Upload</button>
+    </section>
+
+    <section class="podcast-list">
+      <h2>Uploaded Podcasts</h2>
+      <ul id="podcastList"></ul>
+    </section>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+  apiKey: "AIzaSyAK6ArGUbAWBEwCu5l_rq_fcqwSfK7D6TU",
+  authDomain: "vfm-radio-2ac29.firebaseapp.com",
+  projectId: "vfm-radio-2ac29",
+  storageBucket: "vfm-radio-2ac29.firebasestorage.app",
+  messagingSenderId: "679783225612",
+  appId: "1:679783225612:web:6853920267f7f1f3f51129",
+  databaseURL: "https://vfm-radio-2ac29-default-rtdb.firebaseio.com"
+};
+
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (!user) window.location.href = "index.html";
+      loadPodcasts();
+    });
+
+    function logout() {
+      firebase.auth().signOut().then(() => window.location.href = "index.html");
+    }
+
+    function uploadPodcast() {
+      const file = document.getElementById("file").files[0];
+      const title = document.getElementById("title").value;
+      const description = document.getElementById("description").value;
+      const storageRef = firebase.storage().ref("podcasts/" + file.name);
+
+      storageRef.put(file).then(snapshot => {
+        snapshot.ref.getDownloadURL().then(url => {
+          const ref = firebase.database().ref("podcasts").push();
+          ref.set({ title, description, url });
+          alert("Uploaded successfully!");
+          loadPodcasts();
+        });
+      });
+    }
+
+    function loadPodcasts() {
+      const list = document.getElementById("podcastList");
+      list.innerHTML = "";
+      firebase.database().ref("podcasts").once("value", snapshot => {
+        snapshot.forEach(child => {
+          const data = child.val();
+          const li = document.createElement("li");
+          li.innerHTML = `<strong>${data.title}</strong><br>${data.description}<br><audio controls src="${data.url}"></audio>`;
+          list.appendChild(li);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
