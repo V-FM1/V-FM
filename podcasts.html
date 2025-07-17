@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>V-FM Podcasts</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🎙️ V-FM Podcast Gallery</h1>
+    <section class="podcast-list">
+      <ul id="publicPodcastList"></ul>
+    </section>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAK6ArGUbAWBEwCu5l_rq_fcqwSfK7D6TU",
+      authDomain: "vfm-radio-2ac29.firebaseapp.com",
+      projectId: "vfm-radio-2ac29",
+      storageBucket: "vfm-radio-2ac29.firebasestorage.app",
+      messagingSenderId: "679783225612",
+      appId: "1:679783225612:web:6853920267f7f1f3f51129",
+      databaseURL: "https://vfm-radio-2ac29-default-rtdb.firebaseio.com"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    const list = document.getElementById("publicPodcastList");
+
+    firebase.database().ref("podcasts").once("value", snapshot => {
+      snapshot.forEach(child => {
+        const data = child.val();
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${data.title}</strong><br>${data.description}<br><audio controls src="${data.url}"></audio>`;
+        list.appendChild(li);
+      });
+    });
+  </script>
+</body>
+</html>
