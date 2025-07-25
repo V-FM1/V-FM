@@ -22,7 +22,7 @@
     <hostname>v-fm.onrender.com</hostname>
 
     <listen-socket>
-        <port>10000</port>
+        <port>8017</port>
     </listen-socket>
 
     <mount>
@@ -43,7 +43,7 @@
         <accesslog>access.log</accesslog>
         <errorlog>error.log</errorlog>
         <loglevel>3</loglevel>
-        <logsize>10000</logsize>
+        <logsize>8017</logsize>
     </logging>
 
     <security>
