@@ -18,7 +18,7 @@
     <hostname>localhost</hostname>
 
     <listen-socket>
-        <port>8000</port>
+        <port>10000</port>
     </listen-socket>
 
     <paths>
