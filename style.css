@@ -1,0 +1,69 @@
+/* Main Styles */
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background: #f0f0f0;
+  color: #333;
+}
+input, button {
+  margin: 8px 0;
+  padding: 8px;
+  width: 300px;
+  display: block;
+}
+label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+button {
+  background-color: #00c48c;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #009e6d;
+}
+.listen-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #00c48c;
+  color: white;
+  font-weight: bold;
+  border-radius: 30px;
+  text-decoration: none;
+  margin-top: 20px;
+  transition: 0.3s ease;
+}
+.listen-btn:hover {
+  background-color: #009d6e;
+}
+
+/* 🎤 Shoutout Feature Styles */
+#shoutoutBox {
+  background: #fff;
+  border: 2px solid #00c48c;
+  padding: 20px;
+  margin-top: 30px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  max-width: 400px;
+}
+#shoutoutList {
+  max-height: 250px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: #fafafa;
+  border-radius: 8px;
+}
+.shoutout-message {
+  background: #e0fff5;
+  padding: 8px 10px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+.shoutout-message strong {
+  color: #00a97a;
+}
