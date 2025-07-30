@@ -18,18 +18,21 @@
         <admin-password>admin</admin-password>
     </authentication>
 
-    <hostname>localhost</hostname>
-
     <listen-socket>
-        <port>8017</port>
+        <port>8000</port>
     </listen-socket>
+
+    <mount>
+        <mount-name>/stream</mount-name>
+        <public>1</public>
+    </mount>
 
     <paths>
         <basedir>/usr/share/icecast2</basedir>
         <logdir>/usr/local/icecast/logs</logdir>
         <webroot>/usr/share/icecast2/web</webroot>
         <adminroot>/usr/share/icecast2/admin</adminroot>
-        <pidfile>/run/icecast2/icecast.pid</pidfile>
+        <pidfile>/usr/local/icecast/icecast.pid</pidfile>
     </paths>
 
     <logging>
